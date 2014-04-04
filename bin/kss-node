@@ -402,7 +402,7 @@ handlebars.registerHelper('whenDepth', function(depth, options) {
 		return '';
 	}
 	if (depth == this.refDepth) {
-		return options(this);
+		return options.fn(this);
 	}
 	if (options.inverse) {
 		return options.inverse(this);
