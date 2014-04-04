@@ -360,7 +360,14 @@ handlebars.registerHelper('eachSection', function(query, options) {
 
 	l = sections.length;
 	for (i = 0; i < l; i += 1) {
-		buffer += options.fn(sections[i].data);
+		data = sections[i].data
+		isFirst = i === 0;
+		isLast = i === l - 1;
+		data.isFirst = isFirst;
+		data.isLast = isLast;
+		buffer += options.fn(data);
+		delete data.isFirst;
+		delete data.isLast;
 	}
 
 	return buffer;
@@ -379,10 +386,16 @@ handlebars.registerHelper('eachRoot', function(options) {
 	l = sections.length;
 	for (i = 0; i < l; i += 1) {
 		data = sections[i].data
-		isCurrentRoot = data.reference === this.rootNumber;
+		isCurrentRoot = data.reference === this.rootNumber
+		isFirst = i === 0;
+		isLast = i === l - 1;
 		data.isCurrentRoot = isCurrentRoot;
+		data.isFirst = isFirst;
+		data.isLast = isLast;
 		buffer += options.fn(data);
 		delete data.isCurrentRoot;
+		delete data.isFirst;
+		delete data.isLast;
 	}
 
 	return buffer;
